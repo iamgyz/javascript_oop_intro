@@ -9,7 +9,7 @@ Javascript是屬於`prototype-based`語言，並沒有C++/Java中的`class`敘�
 var Car = function() {}; 
 ```  
 ### The constructor 建構子  
-簡單來說，constructor就是在宣告物件時第一個被呼叫的`method`，通常被用來進行變數的初始化。Javascript中並不需要特別宣告constructor method，因為被定義class function中的action都會在物件被宣告時執行  
+簡單來說，constructor就是在宣告物件時第一個被呼叫的`method`，通常被用來進行變數的初始化。Javascript中並不需要特別宣告constructor method，因為被定義class function中的action都會在物件被宣告時執行。基本上無需撰寫return，如果constructor有回傳值，那回傳值就會被當作最後名稱所參考的值  
 ```javascript
 var Car = function() {  
     //以下就是constructor  
