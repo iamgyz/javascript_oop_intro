@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Javascript with OOP</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Javascript with OOP</h1>
+					<h3>Easy come Easy go</h3>
+					<p>
+						<small>Created by <a href="http://gyzlab.com">GYZheng</a></small>
+					</p>
+				</section>
+
+
+				<section data-markdown>
+					<script type="text/template">
+						## Class  
+						Javascript是屬於prototype-based語言，並沒有C++/Java中的class敘述，而是使用function來定義classes.  
+						```javascript
+						//define a new class Car
+						var Car = function() {}; 						
+						```
+					</script>
+				</section>
+
+				<section>
+					<section data-markdown>
+						<script type="text/template">
+							## Constructor  
+							簡單來說，constructor就是在宣告物件時第一個被呼叫的method，通常被用來進行變數的初始化。
+							Javascript中並不需要特別宣告constructor method，因為被定義class function中的action都會在物件被宣告時執行。						
+							```javascript
+							var Car = function() {  
+							    //以下就是constructor  
+							    console.log("The Car object created!");  
+							    //do some initializations
+							};  						
+							```
+						</script>
+					</section>
+					<section data-markdown>
+						基本上無需撰寫return  
+						如果有回傳值，那回傳值就會被當作所參考的值
+						```javascript
+						var Car = function() {
+
+						};
+						var Car2 = function(){
+							return [];							
+						}						
+						var obj1 = new Car();
+						var obj2 = new Car2();
+						console.log(obj1); //Car()
+						console.log(obj2); //[]
+						```
+					</section>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						## Property  
+						property代表物件屬性，this代表目前的object  
+						在class內，透過this.property來操作當前物件的屬性  
+						在class外，會透過objectname.property來操作
+						```javascript
+						// Define class
+						var Car = function (carName){  
+						    //透過this.property來操作 
+						    this.carName = carName;  
+						    console.log("The Car object created!");  
+						};  
+						// Declare object  
+						var benz = new Car('BENZ');  
+						//透過objectname.property來操作
+						console.log('My car name is ' + benz.carName);
+						```
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						## Method  
+						method代表物件的方法，呼叫method的方式與property相同，定義的方法也一樣
+						```javascript
+						// Define class
+						var Car = function (carName){  
+						    //透過this.property來操作 
+						    this.carName = carName;
+						    this.run = function(){  
+						        console.log(this.carName+' is running!');
+						    };
+						};  
+						// Declare object  
+						var benz = new Car('BENZ');  
+						//透過objectname.property來操作
+						benz.run();
+						```
+					</script>
+				</section>
+
+
+				<section data-markdown>
+					<script type="text/template">
+						## Prototype 
+						剛剛定義property與method時，都是直接定義在一開始的宣告裡面，其實也可以透過新增prototype的方式來定義
+						```javascript
+						//Define class
+						var Car = function (carName){  
+						    if(carName!=null)  
+						        this.carName = carName;  
+						};  
+						//使用prototype來定義新的method
+						Car.prototype.run = function(){  
+						    console.log(this.carName+' is running!');
+						};  
+						//使用protopyte來定義新的property
+						Car.prototype.carName = "No-name";
+						// Declare object  
+						var benz = new Car('BENZ');  
+						benz.run();  
+						var mazda = new Car();  
+						mazda.run();  
+						```
+					</script>
+				</section>
+
+
+	
+				<section>
+					<section data-markdown>
+						<script type="text/template">
+							## Inheritance  
+							繼承也是OOP中非常重要的概念之一  
+							目前只支援單一繼承
+							```javascript  
+							//Define parent class  
+							var Car = function (carName){  
+							    this.carName = carName;  
+							};  
+							Car.prototype.run = function(){  
+							    console.log(this.carName+' is running!');
+							};  
+							```
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+							## Inheritance  							
+							```javaScript
+							//Define child class  
+							/* Step 1. 先定義constructor */  
+							function Benz(carName,model){  
+							    //呼叫parent's constructor  
+							    Car.call(this,carName);
+							    //初始化child class的property  
+							    this.model = model;  
+							}  
+
+							```							
+						</script> 						
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						## Inheritance
+						關鍵字是Object.create
+						```javascript
+						/* Step 2. create "Benz.prototype object"來繼承Car.prototype */  
+						//using Object.create, NOT using 'new Car()'  
+						Benz.prototype = Object.create(Car.prototype);  
+						//現在我們已經繼承了Car的prototype，有了Car的方法與屬性，但我們要將constructor指向child class  
+						Benz.prototype.constructor = Benz;  
+						/* Step3. 新增child class自己的方法與屬性*/  
+						Benz.prototype.accerate = function(){  
+						    console.log(this.carName+' with model '+this.model+ ' is accerating!');  
+						};
+						```	
+						</script>
+					</section>
+
+					<section data-markdown>
+						<script type="text/template">
+						## Inheritance
+						```javascript
+						//Define object  
+						var benz = new Benz('BENZ','c200');  
+						benz.run(); //由Car繼承而來
+						benz.accerate(); //Benz特有的方法  
+						```	
+						</script>
+					</section>
+
+
+				</section>
+				<section>
+					<section data-markdown>
+						<script type="text/template">
+						### Closure閉包  
+						能將外部函式的變數關到內部函式  
+						用途是延續外部變數的生命
+						</script>
+					</section>
+
+					<section data-markdown>
+						<script type="text/template">
+						### Closure閉包 
+						```javascript
+						var Car = function(){
+						  var price = 1000;
+						  //閉包, 將price關在裡面
+						  function getPrice(){
+						    return price;
+						  };
+						  //閉包, 將price關在裡面
+						  function addPrice(p){
+						    price = price + p;
+						  };
+						  //回傳上述定義的closure function
+						  return {getPrice:getPrice,addPrice:addPrice};
+						};
+						```
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						### Closure閉包
+						```javascript
+						var car = Car();
+						/*
+						此時Car()已經被執行完畢，並且回傳getPrice/addPrice給car  
+						所以price的生命週期已經結束了，但是我們透過closure把price關在裡面，延續了price的生命週期
+						*/
+						console.log(car.getPrice()); //print 1000
+						car.addPrice(1000);
+						console.log(car.getPrice()); //print 2000
+						```
+						</script>
+					</section>
+				</section>	
+
+				<section>
+					<section  data-markdown>
+						<script type="text/template">
+						### Closure閉包  
+						閉包所關起來的是變數的reference，而不是變數的value  
+						先看一個失敗的範例
+						```javascript
+						var FA = [];//定義一個FA array
+						for(var i=0;i<5;i++){
+						    //將function指派給FA，透過閉包的方式將i關進去
+						 FA[i] = function(){
+						    alert(i);
+						  };
+						}  
+						FA[0]();//得到alert(5)
+						```
+						</script>
+					</section>
+
+					<section data-markdown>
+						<script type="text/template">
+						### Closure閉包  
+						正確的範例   
+						```javascript
+						var FA = [];//定義一個FA array
+						for(var i=0;i<5;i++){
+						  //我們透過立刻執行函式的方式，將i在第一時間馬上綁入
+						 FA[i] = function(k){
+						    //透過return來回傳實際上要執行的函式
+						     return function(){
+						        alert(k);
+						    };   
+						  }(i);
+						}  
+						FA[0]();//得到alert(0)
+						```
+						</script>
+					</section>
+				</section>				
+				<section data-markdown>
+					<h2>好書推薦</h2> 
+					<img data-src="img/book.jpg">
+				</section>
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
