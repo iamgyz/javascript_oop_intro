@@ -76,6 +76,7 @@
 						</script>
 					</section>
 					<section data-markdown>
+						<script type="text/template">
 						基本上無需撰寫return  
 						如果有回傳值，那回傳值就會被當作所參考的值
 						```javascript
@@ -90,6 +91,7 @@
 						console.log(obj1); //Car()
 						console.log(obj2); //[]
 						```
+						</script>
 					</section>
 				</section>
 
@@ -313,9 +315,9 @@
 						</script>
 					</section>
 				</section>				
-				<section data-markdown>
-					<h2>好書推薦</h2> 
-					<img data-src="img/book.jpg">
+				<section>
+					<h3>好書推薦</h3> 
+					<img data-src="img/book.jpg" width="50%">
 				</section>
 			</div>
 
@@ -341,13 +343,15 @@
 					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
 					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
 					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
 					{ src: 'plugin/zoom-js/zoom.js', async: true },
-					{ src: 'plugin/notes/notes.js', async: true }
+					{ src: 'plugin/notes/notes.js', async: true },
+					// Syntax highlight for <code> elements
+        			{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
 				]
 			});
 
 		</script>
+		<script src="">
 
 	</body>
 </html>
