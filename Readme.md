@@ -1,6 +1,8 @@
 Javascript, the OOP concept  
 http://guang.logdown.com/posts/261831-javascript-oop  
 
+For the slides, you can refer to http://gyzlab.com/jsoop
+
 
 ### The Class  
 Javascript是屬於`prototype-based`語言，並沒有C++/Java中的`class`敘述. Javascript使用`function`來定義classes.  
